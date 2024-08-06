@@ -1,11 +1,11 @@
-import { MantineProvider } from '@mantine/core';
+import { FC } from 'react';
+import { Providers } from './providers';
+import { AppRouter } from './routes';
 
-import { Outlet } from 'react-router-dom';
-
-export const App: React.FC = () => {
+export const App: FC = () => {
   return (
-    <MantineProvider>
-      <Outlet />
-    </MantineProvider>
+    <Providers>
+      <AppRouter />
+    </Providers>
   );
 };

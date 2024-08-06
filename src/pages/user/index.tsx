@@ -1,6 +1,7 @@
 import { Text, Group } from '@mantine/core';
+import { FC } from 'react';
 
-export const UserPage = () => {
+export const UserPage: FC = () => {
   return (
     <>
       <div>

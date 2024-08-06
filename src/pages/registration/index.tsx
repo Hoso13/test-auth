@@ -10,8 +10,9 @@ import {
 } from '@mantine/core';
 import { NavLink } from 'react-router-dom';
 import { hasLength, isEmail, isNotEmpty, matchesField, useForm } from '@mantine/form';
+import { FC } from 'react';
 
-export const RegistrationPage = () => {
+export const RegistrationPage: FC = () => {
   const form = useForm({
     mode: 'controlled',
     initialValues: { email: '', password: '', confirmPassword: '' },
@@ -61,7 +62,7 @@ export const RegistrationPage = () => {
             />
 
             <Button type="submit" fullWidth mt="xl">
-              Sign in
+              Sign up
             </Button>
           </Paper>
         </form>
