@@ -10,8 +10,9 @@ import {
 } from '@mantine/core';
 import { NavLink } from 'react-router-dom';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
+import { FC } from 'react';
 
-export const LoginPage = () => {
+export const LoginPage : FC = () => {
   const form = useForm({
     mode: 'controlled',
     initialValues: { email: '', password: '' },
