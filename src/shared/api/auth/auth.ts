@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { IAuthResponse } from './types';
+import { IAuthResponse, IConfirmCodeResponse, IRegistrationResponse } from './types';
 import $api from '../api';
 
 export default class AuthService {
@@ -7,17 +7,22 @@ export default class AuthService {
     email: string,
     password: string,
   ): Promise<AxiosResponse<IAuthResponse>> {
-    return $api.post<IAuthResponse>('/auth/login', { email, password });
+    return $api.post<IAuthResponse>('/auth/login/', { email, password });
   }
   static async registration(
     email: string,
     password: string,
     confirmPassword: string,
-  ): Promise<AxiosResponse<IAuthResponse>> {
-    return $api.post<IAuthResponse>('/registration', {
+  ): Promise<AxiosResponse<IRegistrationResponse>> {
+    return $api.post<IRegistrationResponse>('/registration/', {
       email,
       password,
-      confirmPassword,
+      repeat_password: confirmPassword,
     });
+  }
+  static async confirmCode(
+    confirmCode: string,
+  ): Promise<AxiosResponse<IConfirmCodeResponse>> {
+    return $api.patch<IConfirmCodeResponse>(`/registration/${confirmCode}`, {});
   }
 }
