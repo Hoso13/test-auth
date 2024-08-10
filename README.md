@@ -105,7 +105,7 @@ docker build -t test-auth .
 Запустите контейнер с помощью команды:
 
 ```bash
-docker run -d -p 5000:5000 test-auth
+docker run -d -p 5000:80 test-auth
 ```
 
 После выполнения команды, приложение будет доступно по адресу `http://localhost:5000`.
