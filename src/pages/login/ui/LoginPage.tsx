@@ -9,27 +9,28 @@ import {
 } from '@mantine/core';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { ILoginValues } from '../types';
 import { login } from '@/entities/user/userAuthActions';
 import { useAppDispatch, useAppSelector } from '@/entities/hooks';
 
 export const LoginPage: FC = () => {
-  const user = useAppSelector((state) => state.user);
+  const { isAuth } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  if (user.isAuth) {
-    navigate('/user');
-  }
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/user');
+    }
+  }, [isAuth]);
 
   const handleSubmit = async (values: ILoginValues) => {
     const result = await dispatch(login(values));
     form.reset();
     if (login.fulfilled.match(result)) {
       navigate('/user');
-    }
-    if (login.rejected.match(result) && result.payload?.status === 403) {
+    } else if (login.rejected.match(result) && result.payload?.status === 403) {
       navigate('/confirmation');
     }
   };

@@ -1,19 +1,21 @@
 import { Button, Text, TextInput, Title, Paper } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { IConfirmationValues } from '../../registration/types';
 import { confirmation } from '@/entities/user/userAuthActions';
 import { useAppDispatch, useAppSelector } from '@/entities/hooks';
 import { useNavigate } from 'react-router-dom';
 
 export const CodeConfirmPage: FC = () => {
-  const user = useAppSelector((state) => state.user);
+  const { isAuth } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  if (user.isAuth) {
-    navigate('/user');
-  }
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/user');
+    }
+  }, [isAuth]);
 
   const handleCodeSubmit = async (values: IConfirmationValues) => {
     const result = await dispatch(confirmation(values));

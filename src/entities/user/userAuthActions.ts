@@ -7,7 +7,7 @@ import {
   IRegistrationResponse,
 } from '@/shared/api/auth/types';
 
-import { RejectedDataType } from '@/shared/types/errorTypes';
+import { ErrorType, RejectedDataType } from '@/shared/types/errorTypes';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { setUser } from './userSlice';
@@ -25,7 +25,7 @@ export const login = createAsyncThunk<
   } catch (error) {
     const err = error as AxiosError;
     return rejectWithValue({
-      messageError: err.response?.data,
+      messageError: err.response?.data as ErrorType,
       status: err.response?.status,
     });
   }
@@ -44,7 +44,7 @@ export const registration = createAsyncThunk<
     } catch (error) {
       const err = error as AxiosError;
       return rejectWithValue({
-        messageError: err.response?.data,
+        messageError: err.response?.data as ErrorType,
         status: err.response?.status,
       });
     }
@@ -62,7 +62,7 @@ export const confirmation = createAsyncThunk<
   } catch (error) {
     const err = error as AxiosError;
     return rejectWithValue({
-      messageError: err.response?.data,
+      messageError: err.response?.data as ErrorType,
       status: err.response?.status,
     });
   }

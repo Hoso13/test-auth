@@ -9,20 +9,22 @@ import {
 } from '@mantine/core';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { hasLength, isEmail, isNotEmpty, useForm } from '@mantine/form';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import { IRegistrationValues } from '../types';
 import { useAppDispatch, useAppSelector } from '@/entities/hooks';
 import { registration } from '@/entities/user/userAuthActions';
 
 export const RegistrationPage: FC = () => {
-  const user = useAppSelector((state) => state.user);
+  const { isAuth } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  if (user.isAuth) {
-    navigate('/user');
-  }
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/user');
+    }
+  }, [isAuth]);
 
   const handleSubmit = async (values: IRegistrationValues) => {
     const result = await dispatch(registration(values));

@@ -30,7 +30,7 @@ export const Layout: FC = () => {
       notifications.clean();
       notifications.show({
         title: `Error ${error.status}`,
-        message: error.messageError as string,
+        message: error.messageError.message,
         color: 'red',
       });
       dispatch(setError(null));
