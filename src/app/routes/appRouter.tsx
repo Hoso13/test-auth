@@ -1,7 +1,10 @@
-import { FC } from 'react';
-import { LoginPage } from '@/pages/login/index.tsx';
-import { RegistrationPage } from '@/pages/registration/index.tsx';
-import { UserPage } from '@/pages/user/index.tsx';
+import { FC, useEffect } from 'react';
+
+import { Layout } from '@/app/layout';
+import { CodeConfirmPage } from '@/pages/confirmation';
+import { LoginPage } from '@/pages/login';
+import { RegistrationPage } from '@/pages/registration';
+import { UserPage } from '@/pages/user';
 
 import {
   createBrowserRouter,
@@ -9,15 +12,22 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
-
-import { Layout } from '@/app/layout';
+import { setIsAuth, setUser } from '@/entities/user/userSlice';
+import { useAppDispatch } from '@/entities/hooks';
 
 export const AppRouter: FC = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(setUser(localStorage.getItem('email')));
+    dispatch(setIsAuth(localStorage.getItem('email') !== null));
+  }, []);
+
   const routers = createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<></>} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registration" element={<RegistrationPage />} />
+      <Route path="/confirmation" element={<CodeConfirmPage />} />
       <Route path="/user" element={<UserPage />} />
     </Route>,
   );
