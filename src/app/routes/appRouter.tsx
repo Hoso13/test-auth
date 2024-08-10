@@ -5,6 +5,7 @@ import { CodeConfirmPage } from '@/pages/confirmation';
 import { LoginPage } from '@/pages/login';
 import { RegistrationPage } from '@/pages/registration';
 import { UserPage } from '@/pages/user';
+import { HomePage } from '@/pages/home';
 
 import {
   createBrowserRouter,
@@ -24,7 +25,7 @@ export const AppRouter: FC = () => {
 
   const routers = createRoutesFromElements(
     <Route path="/" element={<Layout />}>
-      <Route index element={<></>} />
+      <Route index element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registration" element={<RegistrationPage />} />
       <Route path="/confirmation" element={<CodeConfirmPage />} />
